@@ -162,5 +162,4 @@ class BasePage
         console.log(`📸 Screenshot saved as: ${name}`);
     }
 }
-
 export default BasePage;

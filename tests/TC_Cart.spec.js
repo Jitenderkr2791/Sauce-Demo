@@ -1,9 +1,9 @@
 import { test, expect } from '@playwright/test';
 import LoginPageMethods from '../pages/login.page.js';
 import HomePage from '../pages/home.page.js';
-import { TEST_DATA } from '../test-data/testData.js';
+import { TEST_DATA, createLoggedInSession } from '../test-data/testData.js';
 
-test.describe.serial('Cart Tests - Single Login Session', () => 
+test.describe('Cart Tests - Single Login Session', () => 
 {
     let context;
     let page;
@@ -11,22 +11,17 @@ test.describe.serial('Cart Tests - Single Login Session', () =>
 
     test.beforeAll(async ({ browser }) => 
     {
-        context = await browser.newContext();
-        page = await context.newPage();
-        const loginPage = new LoginPageMethods(page);
-        await test.step('Login once before all tests', async () => 
-        {
-            await loginPage.navigate();
+        ({ context, page } = await createLoggedInSession(browser));
+            const loginPage = new LoginPage(page);
             await loginPage.login(TEST_DATA.USERS.STANDARD.username,TEST_DATA.USERS.STANDARD.password);
             await expect(page).toHaveURL(/inventory/);
+            home = new HomePage(page);
         });
-        home = new HomePage(page);
-    });
 
     test.afterAll(async () =>
          {
-            await page.close();
-            await context.close();
+             if (page) await page.close();
+             if (context) await context.close();
          });
 
 
@@ -40,6 +35,7 @@ test.describe.serial('Cart Tests - Single Login Session', () =>
 
     test('REQ-CART-002: Remove single product from cart', async () => {
         await test.step('Remove product and verify', async () => {
+        await home.clickAddToCart(TEST_DATA.Product.Product);
         await home.clickRemove(TEST_DATA.Product.Product);
         await home.verifyCartCount(0);
         await home.verifyButtonState(TEST_DATA.Product.Product, 'Add to cart');
@@ -56,6 +52,7 @@ test.describe.serial('Cart Tests - Single Login Session', () =>
 
     test('REQ-CART-004: Remove one product from multiple', async () => {
         await test.step('Remove one item', async () => {
+        await home.clickAddToCart(TEST_DATA.Product.Product);
         await home.clickRemove(TEST_DATA.Product.Product);
         await home.verifyCartCount(1);
         });
@@ -63,6 +60,7 @@ test.describe.serial('Cart Tests - Single Login Session', () =>
 
     test('REQ-CART-005: Remove all products from cart', async () => {
         await test.step('Clear cart', async () => {
+        await home.clickAddToCart(TEST_DATA.Product.Product2);
         await home.clickRemove(TEST_DATA.Product.Product2);
         await home.verifyCartCount(0);
         });

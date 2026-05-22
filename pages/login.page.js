@@ -9,8 +9,9 @@ export default class LoginPageMethods extends BasePage
         super(page);
     }
 
-    async navigate() {
-        await this.page.goto('/'); // uses baseURL from config
+    async navigate() 
+    {
+        await this.page.goto('/');
     }
 
     async enterUsername(username)
@@ -21,6 +22,7 @@ export default class LoginPageMethods extends BasePage
     async enterPassword(password) 
     {
         await this.waitAndType(loginPageLocators.passwordInput, password);
+        return this;
     }
 
     async clickLoginButton()
@@ -40,12 +42,12 @@ export default class LoginPageMethods extends BasePage
         await expect(this.page.locator(loginPageLocators.logo)).toBeVisible();
     }
 
-    async getErrorMessage() 
+    async verifyErrorMessage(expectedMessage) 
     {
-        const error = this.page.locator(loginPageLocators.errorMessage);
-        await error.waitFor({ state: 'visible' });
-        const errorText = (await error.textContent())?.trim() || '';
-        console.log('Error Message:', errorText);
-        return errorText;
+    const error = this.page.locator(loginPageLocators.errorMessage);
+    await error.waitFor({ state: 'visible' });
+    const errorText = (await error.textContent())?.trim() || '';
+    console.log('Error Message:', errorText);
+    expect(errorText).toContain(expectedMessage);
     }
 }

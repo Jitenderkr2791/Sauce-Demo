@@ -3,10 +3,12 @@ import homePageLocators from '../pageobjects/homePageLocators.js';
 import LoginPageMethods from './login.page.js';
 import { allure } from 'allure-playwright';
 
-export default class HomePage extends LoginPageMethods {
-  constructor(page) {
-    super(page);
-  }
+export default class HomePage extends LoginPageMethods 
+{
+    constructor(page) 
+    {
+        super(page);
+    }
 
     formatProduct(productName) 
     {
@@ -31,20 +33,18 @@ export default class HomePage extends LoginPageMethods {
 
     async clickAddToCart(productName) 
     {
-        await allure.step(`Add product: ${productName}`, async () => 
-            {
-            await this.addToCart(productName).click();
-            await expect(this.removeButton(productName)).toBeVisible();
-            });
+        await allure.step(`Add product: ${productName}`, async () => {
+        await this.addToCart(productName).click();
+        await expect(this.removeButton(productName)).toBeVisible();
+        });
     }
 
     async clickRemove(productName) 
     {
-        await allure.step(`Remove product: ${productName}`, async () => 
-            { 
-                await this.removeButton(productName).click();
-                await expect(this.addToCart(productName)).toBeVisible();
-            });
+        await allure.step(`Remove product: ${productName}`, async () => { 
+        await this.removeButton(productName).click();
+        await expect(this.addToCart(productName)).toBeVisible();
+        });
     }
 
     async getCartCount() 
@@ -52,8 +52,8 @@ export default class HomePage extends LoginPageMethods {
         const badge = this.page.locator(homePageLocators.cartBadge);
         if (await badge.count() === 0) 
             {
-            console.log('Cart is empty');
-            return 0;
+                console.log('Cart is empty');
+                return 0;
             }
         const count = parseInt((await badge.innerText()).trim());
         console.log(`Cart count: ${count}`);
@@ -65,19 +65,16 @@ export default class HomePage extends LoginPageMethods {
         expect(await this.getCartCount()).toBe(expectedCount);
     }
   
-     async verifyButtonState(productName, expectedText) 
+    async verifyButtonState(productName, expectedText) 
     {
-     const type = expectedText === 'Remove' ? 'remove' : 'add-to-cart';
-     const button = this.getButton(productName, type);
+        const type = expectedText === 'Remove' ? 'remove' : 'add-to-cart';
+        const button = this.getButton(productName, type);
         await expect(button).toBeVisible();
         await expect(button).toHaveText(expectedText);
     }
 
     async sortBy(optionText) 
     {
-        await this.page.selectOption(homePageLocators.sortDropdown, 
-            {
-                label: optionText
-            });
+        await this.page.selectOption(homePageLocators.sortDropdown, {label: optionText});
     }
 }

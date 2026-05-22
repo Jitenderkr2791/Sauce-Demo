@@ -13,6 +13,7 @@ const pdpPageLocators = {
   productImage: '.inventory_details_img',
   productDescription: '.inventory_details_desc',
   backToProductsBtn: '#back-to-products'
+  
 };
 
 export default pdpPageLocators;
