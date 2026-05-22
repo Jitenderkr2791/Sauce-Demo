@@ -1,0 +1,44 @@
+{
+  "name": "swaglabs-playwright-framework",
+  "version": "1.0.0",
+  "description": "Swag Labs automation framework using Playwright (POM + Fixtures + Test Data)",
+  "main": "index.js",
+  "scripts": {
+    "test": "npx playwright test",
+    "test:dev": "cross-env NODE_ENV=dev playwright test",
+    "test:stage": "cross-env NODE_ENV=stage playwright test",
+    "test:prod": "cross-env NODE_ENV=prod playwright test",
+    "test:headed": "npx playwright test --headed",
+    "test:debug": "npx playwright test --debug",
+    "test:chrome": "npx playwright test --project=Chromium",
+    "test:firefox": "npx playwright test --project=Firefox",
+    "test:webkit": "npx playwright test --project=Webkit",
+    "test:serial": "npx playwright test --workers=1",
+    "test:smoke": "npx playwright test --grep @smoke",
+    "test:regression": "npx playwright test --grep @regression",
+    "test:report": "npx playwright test --reporter=html && npx playwright show-report",
+    "test:allure": "npx playwright test --reporter=line,allure-playwright",
+    "allure:clean": "rm -rf allure-results allure-report",
+    "allure:generate": "allure generate allure-results --clean -o allure-report",
+    "allure:open": "npx allure open allure-report",
+    "test:allure:open": "npm run allure:clean && npm run test:allure && npm run allure:generate && npm run allure:open",
+    "codegen": "npx playwright codegen",
+    "trace": "npx playwright show-trace"
+  },
+  "keywords": [
+    "Playwright",
+    "Test Automation",
+    "JavaScript",
+  ],
+  "author": "Jitender kumar",
+  "license": "ISC",
+  "type": "module",
+  "dependencies": {
+    "@faker-js/faker": "^10.4.0"
+  },
+  "devDependencies": {
+    "@playwright/test": "^1.60.0",
+    "@types/node": "^25.9.1",
+    "allure-playwright": "^3.9.0"
+  }
+}
