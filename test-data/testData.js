@@ -20,5 +20,11 @@ export const TEST_DATA = {
     USERNAME_REQUIRED: 'Username is required',
     PASSWORD_REQUIRED: 'Password is required',
     INVALID_CREDENTIALS: 'Username and password do not match'
+  },
+
+  Product: {
+    Product: 'Sauce Labs Backpack',
+    Product2: 'Sauce Labs Bike Light'
   }
+
 };
