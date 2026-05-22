@@ -28,14 +28,14 @@ test.describe('PDP Tests - Single Login Session', () => {
     await context.close();
   });
 
-  // ---------- REQ-PDP-001 ----------
+  
 
   test('REQ-PDP-001: Product label redirects to PDP', async () => {
     await pdp.clickProductName(TEST_DATA.Product.Product);
     await pdp.verifyPDPLoaded(TEST_DATA.Product.Product);
   });
 
-  // ---------- REQ-PDP-002 ----------
+
 
   test('REQ-PDP-002: Product image redirects to PDP', async () => {
     await pdp.clickBackToProducts();

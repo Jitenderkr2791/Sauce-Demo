@@ -13,7 +13,7 @@ test.describe('Swag Labs Login - BDD Style Tests', () => {
     });
   });
 
-  // REQ-LOGIN-001
+  
   test('REQ-LOGIN-001 @smoke should login successfully with valid credentials', async ({ page }) => {
     await loginPage.login(TEST_DATA.USERS.STANDARD.username,TEST_DATA.USERS.STANDARD.password);
     await expect(page).toHaveURL(/inventory/);
@@ -38,7 +38,7 @@ test.describe('Swag Labs Login - BDD Style Tests', () => {
   });
 
 
-  // REQ-LOGIN-004
+  
   test('REQ-LOGIN-004 Both fields blank', async () => {
     await loginPage.clickLoginButton();
     const error = await loginPage.getErrorMessage();
@@ -46,7 +46,7 @@ test.describe('Swag Labs Login - BDD Style Tests', () => {
   });
 
 
-  // REQ-LOGIN-005
+  
   test('REQ-LOGIN-005 Invalid password', async () => {
     await loginPage.login(TEST_DATA.USERS.STANDARD.username,TEST_DATA.USERS.INVALID.password);
     const error = await loginPage.getErrorMessage();
@@ -54,7 +54,7 @@ test.describe('Swag Labs Login - BDD Style Tests', () => {
   });
 
 
-  // REQ-LOGIN-006
+  
   test('REQ-LOGIN-006 Invalid username', async () => {
     await loginPage.login(TEST_DATA.USERS.INVALID.username,TEST_DATA.USERS.STANDARD.password);
     const error = await loginPage.getErrorMessage();
@@ -62,7 +62,6 @@ test.describe('Swag Labs Login - BDD Style Tests', () => {
   });
 
 
-  // REQ-LOGIN-007
   test('REQ-LOGIN-007 Password masking', async ({ page }) => {
     const passwordField = page.locator('//input[@placeholder="Password"]');
     await passwordField.fill(TEST_DATA.USERS.STANDARD.password);
@@ -70,7 +69,7 @@ test.describe('Swag Labs Login - BDD Style Tests', () => {
   });
 
 
-  // REQ-LOGIN-008
+  
   test('REQ-LOGIN-008 Logout', async ({ page }) => {
     await loginPage.login(TEST_DATA.USERS.STANDARD.username,TEST_DATA.USERS.STANDARD.password);
     await page.locator('#react-burger-menu-btn').click();
@@ -79,7 +78,7 @@ test.describe('Swag Labs Login - BDD Style Tests', () => {
   });
 
 
-  // REQ-LOGIN-009
+  
   test('REQ-LOGIN-009 Products page validation', async ({ page }) => {
     await loginPage.login(TEST_DATA.USERS.STANDARD.username,TEST_DATA.USERS.STANDARD.password);
     await expect(page.locator('.title')).toHaveText('Products');
@@ -87,7 +86,7 @@ test.describe('Swag Labs Login - BDD Style Tests', () => {
   });
 
 
-  // REQ-LOGIN-010
+  
   test('REQ-LOGIN-010 Case-sensitive login', async () => {
     await loginPage.login(TEST_DATA.USERS.WRONG_CASE.username,TEST_DATA.USERS.WRONG_CASE.password);
     const error = await loginPage.getErrorMessage();
