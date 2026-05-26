@@ -16,7 +16,6 @@ test.describe('Swag Labs Login - BDD Style Tests', () => {
       });
    });
 
-
     test('REQ-LOGIN-001 @smoke should login successfully with valid credentials', async ({ page }) => {
       await loginPage.login(TEST_DATA.USERS.STANDARD.username,TEST_DATA.USERS.STANDARD.password);
       await expect(page).toHaveURL(/inventory/);

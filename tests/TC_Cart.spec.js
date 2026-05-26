@@ -7,19 +7,19 @@ test.describe('Cart Tests - Single Login Session', () =>
     let context;
     let page;
     let home;
-    test.beforeAll(async ({ browser }) => {
-    ({ context, page } = await createLoggedInSession(browser));
+   test.beforeEach(async ({ browser }) => {
+
+        ({ context, page } = await createLoggedInSession(browser));
+
         home = new HomePage(page);
     });
 
-    test.beforeEach(async () => {
-    await page.reload();
+    test.afterEach(async () => {
+
+        await page.close();
+        await context.close();
     });
 
-    test.afterAll(async () => {
-    if (page) await page.close();
-    if (context) await context.close();
-    });
 
     test('REQ-CART-001: Add single product to cart', async () => {
         await test.step('Add product and verify', async () => {
@@ -72,6 +72,7 @@ test.describe('Cart Tests - Single Login Session', () =>
 
     test('REQ-CART-007: Remove button state change', async () => {
         await test.step('Verify Remove → Add state', async () => {
+        await home.clickAddToCart(TEST_DATA.Product.Product);
         await home.clickRemove(TEST_DATA.Product.Product);
         await home.verifyButtonState(TEST_DATA.Product.Product, 'Add to cart');
         });
