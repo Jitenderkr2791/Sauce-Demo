@@ -1,5 +1,6 @@
 import LoginPageMethods from '../pages/login.page.js';
 import { expect } from '@playwright/test';
+import HomePage from '../pages/home.page.js';
 
   export const TEST_DATA = {
     URL: '/',

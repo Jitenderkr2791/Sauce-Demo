@@ -1,5 +1,4 @@
 import { test, expect } from '@playwright/test';
-import LoginPageMethods from '../pages/login.page.js';
 import HomePage from '../pages/home.page.js';
 import { TEST_DATA, createLoggedInSession } from '../test-data/testData.js';
 
@@ -8,22 +7,19 @@ test.describe('Cart Tests - Single Login Session', () =>
     let context;
     let page;
     let home;
+    test.beforeAll(async ({ browser }) => {
+    ({ context, page } = await createLoggedInSession(browser));
+        home = new HomePage(page);
+    });
 
-    test.beforeAll(async ({ browser }) => 
-    {
-        ({ context, page } = await createLoggedInSession(browser));
-            const loginPage = new LoginPage(page);
-            await loginPage.login(TEST_DATA.USERS.STANDARD.username,TEST_DATA.USERS.STANDARD.password);
-            await expect(page).toHaveURL(/inventory/);
-            home = new HomePage(page);
-        });
+    test.beforeEach(async () => {
+    await page.reload();
+    });
 
-    test.afterAll(async () =>
-         {
-             if (page) await page.close();
-             if (context) await context.close();
-         });
-
+    test.afterAll(async () => {
+    if (page) await page.close();
+    if (context) await context.close();
+    });
 
     test('REQ-CART-001: Add single product to cart', async () => {
         await test.step('Add product and verify', async () => {
@@ -31,7 +27,7 @@ test.describe('Cart Tests - Single Login Session', () =>
         await home.verifyCartCount(1);
         await home.verifyButtonState(TEST_DATA.Product.Product, 'Remove');
         });
-    });
+    })
 
     test('REQ-CART-002: Remove single product from cart', async () => {
         await test.step('Remove product and verify', async () => {
@@ -53,6 +49,7 @@ test.describe('Cart Tests - Single Login Session', () =>
     test('REQ-CART-004: Remove one product from multiple', async () => {
         await test.step('Remove one item', async () => {
         await home.clickAddToCart(TEST_DATA.Product.Product);
+        await home.clickAddToCart(TEST_DATA.Product.Product2);
         await home.clickRemove(TEST_DATA.Product.Product);
         await home.verifyCartCount(1);
         });
