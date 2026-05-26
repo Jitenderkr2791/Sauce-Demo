@@ -1,2 +1,0 @@
-Entered value: Standard_User
-Entered value: Secret_Sauce

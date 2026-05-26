@@ -1,2 +1,0 @@
-Entered value: invalid_user
-Entered value: secret_sauce

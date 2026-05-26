@@ -1,7 +1,3 @@
-import LoginPageMethods from '../pages/login.page.js';
-import { expect } from '@playwright/test';
-import HomePage from '../pages/home.page.js';
-
   export const TEST_DATA = {
     URL: '/',
     
@@ -27,19 +23,7 @@ import HomePage from '../pages/home.page.js';
     },
 
     Product: {
-      Product: 'Sauce Labs Backpack',
-      Product2: 'Sauce Labs Bike Light'
+       BACKPACK: 'Sauce Labs Backpack',
+       BIKE_LIGHT: 'Sauce Labs Bike Light'
     }
   }
-
-export async function createLoggedInSession(browser) 
-{
-    const context = await browser.newContext();
-    const page = await context.newPage();
-    const loginPage = new LoginPageMethods(page);
-    await loginPage.navigate();
-    await loginPage.login(TEST_DATA.USERS.STANDARD.username,TEST_DATA.USERS.STANDARD.password);
-    await expect(page).toHaveURL(/inventory/);
-    const home = new HomePage(page);
-    return { context, page };
-}

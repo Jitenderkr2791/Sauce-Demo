@@ -1,2 +1,0 @@
-Entered value: secret_sauce
-Error Message: Epic sadface: Username is required

@@ -1,4 +1,0 @@
-Entered value: standard_user
-Entered value: secret_sauce
-Adding product: Sauce Labs Backpack
-Cart count: 1

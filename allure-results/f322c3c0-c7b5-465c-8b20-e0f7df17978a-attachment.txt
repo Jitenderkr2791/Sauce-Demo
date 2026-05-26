@@ -1,3 +1,0 @@
-Entered value: standard_user
-Entered value: secret_sauce
-Cart is empty
